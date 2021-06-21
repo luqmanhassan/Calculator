@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+            font-size: 30px;
+        }
+        
+        #calc {
+            max-width: 400px;
+            margin: 100px auto 0px;
+            height: 500px;
+            background-color: black;
+            border: 2px solid black;
+            border-radius: 10px;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            grid-template-rows: auto auto auto auto auto auto;
+            grid-gap: 10px;
+            overflow: auto;
+        }
+        
+        button {
+            border: 2px solid #000000;
+            border-radius: 10px;
+        }
+        
+        button:not(#display):hover {
+            background-color: black;
+            color: white;
+            cursor: pointer;
+        }
+        
+        #display {
+            grid-column: 1 / 5;
+            text-align: right;
+            padding: 0px 15px;
+            grid-row: 1 / 3;
+            overflow: hidden;
+        }
+        
+        #clear {
+            grid-column: 1 / 3;
+        }
+        
+        #delete {
+            grid-column: 3 / 5;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="calc">
+        <button id="display">0</button>
+        <button id="clear">CLEAR</button>
+        <button id="delete">DELETE</button>
+        <button class="number" id="7">7</button>
+        <button class="number" id="8">8</button>
+        <button class="number" id="9">9</button>
+        <button class="operator" id="divide" onclick="divide()">&divide;</button>
+        <button class="number" id="4">4</button>
+        <button class="number" id="5">5</button>
+        <button class="number" id="6">6</button>
+        <button class="operator" id="multiply" onclick="multiply()">&times;</button>
+        <button class="number" id="1">1</button>
+        <button class="number" id="2">2</button>
+        <button class="number" id="3">3</button>
+        <button class="operator" id="minus" onclick="subtract()">&minus;</button>
+        <button id="decimal">.</button>
+        <button class="number" id="0">0</button>
+        <button id="equal">=</button>
+        <button class="operator" id="add" onclick="add()">+</button>
+    </div>
+
+
+    <script>
+        // Variables & Values 
+        let display_value = 0;
+        let class_number = document.getElementsByClassName("number");
+        let class_operator = document.getElementsByClassName("operator");
+        let number_array = [];
+        let operator_array = [];
+        let check = 0;
+        let check_2 = 0;
+
+        // Number Buttons  
+        for (let i = 0; i < class_number.length; i++) {
+            class_number[i].addEventListener("click", numberFunction);
+        }
+
+        function numberFunction() {
+            if (display_value == 0 && number_array.length == 0 || display_value == 0 && number_array.length != 0) {
+                display_value = this.innerHTML;
+                display(display_value);
+            } else if (display_value != 0 && number_array.length == 0) {
+                if (check_2 != 0) {
+                    display_value = this.innerHTML;
+                    display(display_value);
+                    check_2 = 0;
+                } else {
+                    display_value = display_value + "" + this.innerHTML;
+                    display(display_value);
+                }
+            } else if (display_value != 0 && number_array.length != 0) {
+                if (check != 0) {
+                    display_value = display_value + "" + this.innerHTML;
+                    display(display_value);
+                } else {
+                    display_value = this.innerHTML;
+                    display(display_value);
+                    check++;
+
+                }
+            }
+
+
+
+        }
+
+        function display(xxx) {
+            document.getElementById("display").innerHTML = xxx;
+        }
+
+        // Operator Buttons 
+
+        function add(x, y) {
+            return x + y;
+        };
+
+        function subtract(x, y) {
+            return x - y;
+        }
+
+        function multiply(x, y) {
+            return x * y;
+        }
+
+        function divide(x, y) {
+            return x / y;
+        }
+
+
+        class_operator[0].addEventListener("click", divide_operator);
+        class_operator[1].addEventListener("click", multiply_operator);
+        class_operator[2].addEventListener("click", subtract_operator);
+        class_operator[3].addEventListener("click", add_operator);
+
+        function divide_operator() {
+            number_array.push(display_value);
+            operator_array.push(divide);
+
+            if (operator_array.length == 2 && number_array.length == 2) {
+                display_value = operator_array[0](number_array[0], number_array[1]);
+                display(display_value);
+                number_array.shift();
+                number_array.shift();
+                operator_array.shift();
+                number_array.push(display_value);
+            }
+            if (operator_array.length != 0 && number_array.length != 0) {
+                check = 0;
+            }
+
+        }
+
+        function multiply_operator() {
+            number_array.push(display_value);
+            operator_array.push(multiply);
+
+            if (operator_array.length == 2 && number_array.length == 2) {
+                display_value = operator_array[0](number_array[0], number_array[1]);
+                display(display_value);
+                number_array.shift();
+                number_array.shift();
+                operator_array.shift();
+                number_array.push(display_value);
+            }
+            if (operator_array.length != 0 && number_array.length != 0) {
+                check = 0;
+            }
+
+        }
+
+        function subtract_operator() {
+            number_array.push(display_value);
+            operator_array.push(subtract);
+
+            if (operator_array.length == 2 && number_array.length == 2) {
+                display_value = operator_array[0](number_array[0], number_array[1]);
+                display(display_value);
+                number_array.shift();
+                number_array.shift();
+                operator_array.shift();
+                number_array.push(display_value);
+            }
+            if (operator_array.length != 0 && number_array.length != 0) {
+                check = 0;
+            }
+
+        }
+
+        function add_operator() {
+            number_array.push(display_value);
+            operator_array.push(add);
+            if (operator_array.length == 2 && number_array.length == 2) {
+                display_value = operator_array[0](Number(number_array[0]), Number(number_array[1]));
+                display(display_value);
+                number_array.shift();
+                number_array.shift();
+                operator_array.shift();
+                number_array.push(display_value);
+            }
+            if (operator_array.length != 0 && number_array.length != 0) {
+                check = 0;
+            }
+        }
+
+
+        // Equal Button  
+        document.getElementById("equal").addEventListener("click", equalFunction);
+
+        function equalFunction() {
+
+            number_array.push(display_value);
+            if (operator_array.length == 1 && number_array.length == 2) {
+                display_value = operator_array[0](Number(number_array[0]), Number(number_array[1]));
+                display(display_value);
+                number_array = [];
+                operator_array = [];
+            }
+
+        }
+
+
+
+        /*
+                      
+             
+        Operate Function: 
+       
+       
+        Senarios When I hit the operator button:
+
+        *1 - Nothing > Operator | nothing display 0 
+        2 - number > operator > operator  | Nothing display 0
+        *2.5 - NUmber > Operator > operator > Equal | Runs smooth 
+
+        *3 - number > operator > Number > operator > number > operator | Store & Display 
+        *4 - number > operator > Number > equal | Clear & Display 
+        *5 - Operator > number > operator | Store 0 then use as usual 
+        *6 - Operator > Number > Equal | Run Smooth 
+    
+First Niggaz Shit 
+*1
+*2 
+2.5 Failed 
+*3
+*4 
+*5
+*6
+
+Ultimate Niggaz Shit 
+1 Failed 
+2 Failed 
+*2.5
+*3
+*4
+*5
+*6
+
+*/
+
+
+
+        // Delete Button  
+        document.getElementById("delete").addEventListener("click", deleteFunction);
+
+        function deleteFunction() {
+            display_value.toString();
+            if (display_value.length > 1) {
+                display_value = display_value.substring(0, (display_value.length - 1));
+                Number(display_value);
+            } else {
+                display_value = 0;
+            }
+            display(display_value);
+        }
+
+        // Clear Button 
+        document.getElementById("clear").addEventListener("click", clearFunction);
+
+        function clearFunction() {
+            display_value = 0;
+            display(display_value);
+            number_array = [];
+            operator_array = [];
+            check_2 = 0;
+            check = 0;
+        }
+        //Decimal Button 
+        document.getElementById("decimal").addEventListener("click", decimalFunction);
+
+        function decimalFunction() {
+            display_value = display_value.toString();
+            if (display_value.indexOf(".") == -1) {
+                display_value += ".";
+                display(display_value);
+            }
+        }
+    </script>
+</body>
+
+</html>
