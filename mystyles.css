@@ -1,0 +1,48 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-size: 30px;
+}
+
+#calc {
+    max-width: 400px;
+    margin: 100px auto 0px;
+    height: 500px;
+    background-color: black;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-template-rows: auto auto auto auto auto auto;
+    grid-gap: 10px;
+    overflow: auto;
+}
+
+button {
+    border: 2px solid #000000;
+    border-radius: 10px;
+}
+
+button:not(#display):hover {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+
+#display {
+    grid-column: 1 / 5;
+    text-align: right;
+    padding: 0px 15px;
+    grid-row: 1 / 3;
+    overflow: hidden;
+}
+
+#clear {
+    grid-column: 1 / 3;
+}
+
+#delete {
+    grid-column: 3 / 5;
+}
