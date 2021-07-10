@@ -157,45 +157,6 @@ function equalFunction() {
 
 
 
-/*
-              
-     
-Operate Function: 
-
-
-Senarios When I hit the operator button:
-
-*1 - Nothing > Operator | nothing display 0 
-2 - number > operator > operator  | Nothing display 0
-*2.5 - NUmber > Operator > operator > Equal | Runs smooth 
-
-*3 - number > operator > Number > operator > number > operator | Store & Display 
-*4 - number > operator > Number > equal | Clear & Display 
-*5 - Operator > number > operator | Store 0 then use as usual 
-*6 - Operator > Number > Equal | Run Smooth 
-
-First Niggaz Shit 
-*1
-*2 
-2.5 Failed 
-*3
-*4 
-*5
-*6
-
-Ultimate Niggaz Shit 
-1 Failed 
-2 Failed 
-*2.5
-*3
-*4
-*5
-*6
-
-*/
-
-
-
 // Delete Button  
 document.getElementById("delete").addEventListener("click", deleteFunction);
 
