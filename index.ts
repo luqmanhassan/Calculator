@@ -1,12 +1,15 @@
 // Variables & Values
 export {};
-let display_value: any = 0;
-let class_number = document.getElementsByClassName('number');
-let class_operator = document.getElementsByClassName('operator');
+type yo = any;
+
+let display_value: string = '0';
 let number_array: any[] = [];
 let operator_array: any[] = [];
 let check: number = 0;
 let check_2: number = 0;
+
+let class_number = document.getElementsByClassName('number');
+let class_operator = document.getElementsByClassName('operator');
 
 // Number Buttons
 for (let i = 0; i < class_number.length; i++) {
@@ -15,13 +18,13 @@ for (let i = 0; i < class_number.length; i++) {
 
 function numberFunction() {
   if (
-    (display_value == 0 && number_array.length == 0) ||
-    (display_value == 0 && number_array.length != 0)
+    (display_value === '0' && number_array.length === 0) ||
+    (display_value === '0' && number_array.length !== 0)
   ) {
     display_value = this.innerHTML;
     display(display_value);
-  } else if (display_value != 0 && number_array.length == 0) {
-    if (check_2 != 0) {
+  } else if (display_value !== '0' && number_array.length === 0) {
+    if (check_2 !== 0) {
       display_value = this.innerHTML;
       display(display_value);
       check_2 = 0;
@@ -29,8 +32,8 @@ function numberFunction() {
       display_value = display_value + '' + this.innerHTML;
       display(display_value);
     }
-  } else if (display_value != 0 && number_array.length != 0) {
-    if (check != 0) {
+  } else if (display_value !== '0' && number_array.length !== 0) {
+    if (check !== 0) {
       display_value = display_value + '' + this.innerHTML;
       display(display_value);
     } else {
@@ -41,25 +44,24 @@ function numberFunction() {
   }
 }
 
-function display(xxx) {
-  document.getElementById('display').innerHTML = xxx;
+function display(x: string): void {
+  document.getElementById('display').innerHTML = x;
 }
 
 // Operator Buttons
-
-function add(x, y) {
-  return x + y;
+function add(x: string, y: string): number {
+  return Number(x) + Number(y);
 }
 
-function subtract(x, y) {
+function subtract(x: number, y: number) {
   return x - y;
 }
 
-function multiply(x, y) {
+function multiply(x: number, y: number) {
   return x * y;
 }
 
-function divide(x, y) {
+function divide(x: number, y: number) {
   return x / y;
 }
 
@@ -159,12 +161,15 @@ document.getElementById('delete').addEventListener('click', deleteFunction);
 
 function deleteFunction() {
   display_value.toString();
-  if (display_value.length > 1) {
-    display_value = display_value.substring(0, display_value.length - 1);
-    Number(display_value);
-  } else {
-    display_value = 0;
+  if (typeof display_value == 'string') {
+    if (display_value.length > 1) {
+      display_value = display_value.substring(0, display_value.length - 1);
+      Number(display_value);
+    } else {
+      display_value = '0';
+    }
   }
+
   display(display_value);
 }
 
@@ -172,7 +177,7 @@ function deleteFunction() {
 document.getElementById('clear').addEventListener('click', clearFunction);
 
 function clearFunction() {
-  display_value = 0;
+  display_value = '0';
   display(display_value);
   number_array = [];
   operator_array = [];
