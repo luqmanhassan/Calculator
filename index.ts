@@ -1,13 +1,11 @@
 // Variables & Values
 export {};
-type yo = any;
-
+type num = number | string;
 let display_value: string = '0';
-let number_array: any[] = [];
-let operator_array: any[] = [];
+let number_array: num[] = [];
+let operator_array = [];
 let check: number = 0;
 let check_2: number = 0;
-
 let class_number = document.getElementsByClassName('number');
 let class_operator = document.getElementsByClassName('operator');
 
@@ -17,10 +15,9 @@ for (let i = 0; i < class_number.length; i++) {
 }
 
 function numberFunction() {
-  if (
-    (display_value === '0' && number_array.length === 0) ||
-    (display_value === '0' && number_array.length !== 0)
-  ) {
+  let x = number_array.length === 0 || number_array.length !== 0;
+
+  if (display_value === '0' && x) {
     display_value = this.innerHTML;
     display(display_value);
   } else if (display_value !== '0' && number_array.length === 0) {
@@ -53,15 +50,15 @@ function add(x: string, y: string): number {
   return Number(x) + Number(y);
 }
 
-function subtract(x: number, y: number) {
+function subtract(x: number, y: number): number {
   return x - y;
 }
 
-function multiply(x: number, y: number) {
+function multiply(x: number, y: number): number {
   return x * y;
 }
 
-function divide(x: number, y: number) {
+function divide(x: number, y: number): number {
   return x / y;
 }
 
@@ -70,7 +67,7 @@ class_operator[1].addEventListener('click', multiply_operator);
 class_operator[2].addEventListener('click', subtract_operator);
 class_operator[3].addEventListener('click', add_operator);
 
-function divide_operator() {
+function divide_operator(): void {
   number_array.push(display_value);
   operator_array.push(divide);
 
@@ -87,7 +84,7 @@ function divide_operator() {
   }
 }
 
-function multiply_operator() {
+function multiply_operator(): void {
   number_array.push(display_value);
   operator_array.push(multiply);
 
@@ -104,7 +101,7 @@ function multiply_operator() {
   }
 }
 
-function subtract_operator() {
+function subtract_operator(): void {
   number_array.push(display_value);
   operator_array.push(subtract);
 
@@ -121,7 +118,7 @@ function subtract_operator() {
   }
 }
 
-function add_operator() {
+function add_operator(): void {
   number_array.push(display_value);
   operator_array.push(add);
   if (operator_array.length == 2 && number_array.length == 2) {
@@ -143,7 +140,7 @@ function add_operator() {
 // Equal Button
 document.getElementById('equal').addEventListener('click', equalFunction);
 
-function equalFunction() {
+function equalFunction(): void {
   number_array.push(display_value);
   if (operator_array.length == 1 && number_array.length == 2) {
     display_value = operator_array[0](
@@ -159,7 +156,7 @@ function equalFunction() {
 // Delete Button
 document.getElementById('delete').addEventListener('click', deleteFunction);
 
-function deleteFunction() {
+function deleteFunction(): void {
   display_value.toString();
   if (typeof display_value == 'string') {
     if (display_value.length > 1) {
@@ -176,7 +173,7 @@ function deleteFunction() {
 // Clear Button
 document.getElementById('clear').addEventListener('click', clearFunction);
 
-function clearFunction() {
+function clearFunction(): void {
   display_value = '0';
   display(display_value);
   number_array = [];
@@ -187,7 +184,7 @@ function clearFunction() {
 //Decimal Button
 document.getElementById('decimal').addEventListener('click', decimalFunction);
 
-function decimalFunction() {
+function decimalFunction(): void {
   display_value = display_value.toString();
   if (display_value.indexOf('.') == -1) {
     display_value += '.';

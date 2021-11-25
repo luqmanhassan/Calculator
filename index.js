@@ -1,4 +1,5 @@
 'use strict';
+//exports.__esModule = true;
 var display_value = '0';
 var number_array = [];
 var operator_array = [];
@@ -11,10 +12,8 @@ for (var i = 0; i < class_number.length; i++) {
   class_number[i].addEventListener('click', numberFunction);
 }
 function numberFunction() {
-  if (
-    (display_value === '0' && number_array.length === 0) ||
-    (display_value === '0' && number_array.length !== 0)
-  ) {
+  var x = number_array.length === 0 || number_array.length !== 0;
+  if (display_value === '0' && x) {
     display_value = this.innerHTML;
     display(display_value);
   } else if (display_value !== '0' && number_array.length === 0) {
